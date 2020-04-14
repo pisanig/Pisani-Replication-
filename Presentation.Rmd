@@ -31,3 +31,4 @@ The survey was was done in an experimental way. Respondents reacted to fictional
 
 The dependent variables, the punitive measure and the emotions measure, are rescaled from 0 to 1 for better comparison.
 
+Each table and figure stands for one of the hypothesis.
