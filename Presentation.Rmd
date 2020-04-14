@@ -1,0 +1,33 @@
+---
+title: "Pisani Replication Presentation"
+output: html_notebook
+---
+
+## Article ##
+
+I chose the article named "Race, Crime, and emotions" written by Camille D. Burge and Gbemende Johnson. I will try to replicate mainly the included tables. 
+
+## Summary ## 
+
+The paper revolves around the question how exposure to intragroup, Black-on-Black, and intergroup, White-on-Black, crime influence their emotional reaction to it and how it shapes Black people's attitudes towards punitive measures. It aims to answer the question using an experimental survey on a sample of almost 900 Black Americans equally balanced between men and women. According to essential socio-demographic and economical factors, the sample is representative. The results show that respondents are more agreeable with higher sentences when the crime is done upon Black people and the agressor is White. This situation also evokes higher levels of anger. In the case of Black-on-Black crime, the respondents are generally in favor of lower sentences. Similiarly, the anger rate is higher, although in this case mixed with feelings of shame.
+
+## Theory ##
+
+The article is based on psychological theories regarding the concept of intergroup threat. The threat occurs when one group jeopardizes the chances for well-being of another group. The threat can be realistic, challenging the physical well-being, or symbolic, challenging abstract systems such as values, morals, norms etc. The victim's reaction involves strong emotional responses of fear, rage, anger, hatred, resentment, frustration, contempt, and insecurity. The most common collective emotional response is anger. In other words, although the emotional responses to these events are vary on the individual level, on the "community" level, the response evolves into feelings of anger. As stated in the article, "social categorization into a group changes emotional experience.". The anger itself is in the article defined as "a negative emotion wherein blame for undesirable behavior and resulting undesirable events is directed at another person or group." The first hypothesis is built upon this basis. As for the intragroup violence, supposedly the most frequently occuring emotion is shame. Although it is more probable for Black people to live in areas with higher crime rates and therefore to live in conditions with higher rate of becoming a victim too, they are generally not in favor of harsher punishments. That is because of their perception of the justice system which they see as being racially biased, more punitive towards Black people. This perception is nowadays constitutionally illegal, but it roots from many historical reasons.
+
+## Hypotheses
+
+1. When Black Americans are exposed to an intergroup threat, in the form of violent crime, from a member of a racial out-group, Blacks' feelings of anger should increase. **### kdyz jsou cerni ohrozeni violenci nekym z outgroup, cerni jsou vice nastvani**s
+
+2. When Black Americans are exposed to an intragroup threat, in the form of violent crime, from a member of their own racial group, Blacks' feelings of shame should increase. **###kdyz jsou cerni ohrozeni violenci nekym z ingroup, cerni se stydi**
+
+3. When Blacks are exposed to an intragroup threat, in the form of violent crime with a Black perpetrator, regardless of the race of the victim, Blacks will become less punitive. **### at uz je obet kdokoliv, kdyz je utocnik cerny, jsou cerni less punitive**
+
+4. When Blacks are exposed to an intergroup threat, in the form of violent crime with a White perpetrator and a Black victim, Blacks will become more punitive. **###kdyz je obet cerny a utocnik bily, cerni jsou more punitive**
+
+## Survey ## 
+
+The survey was was done in an experimental way. Respondents reacted to fictional article about a murder and resulting arrest. There were five versions of the article, each for a different situation - different victim-perpetrator race combination. That means White-on-Black, Black-on-Black, White-on-White, Black-on-White, and a control article without a mention of any race. The articles were randomly assigned to the respondents. After reading, respondents answered multiple questions aiming to capture their emotional state and their opinions. The emotions were measured via question asking to which extent the article made them feel angry or ashamed as a member of their racial group. The opinions were measured using the Likert scale capturing the extent of agreement with this sentence: "The best way to deal with violent crimes is to dramatically increase prison terms for people who commit violent crimes."
+
+The dependent variables, the punitive measure and the emotions measure, are rescaled from 0 to 1 for better comparison.
+
