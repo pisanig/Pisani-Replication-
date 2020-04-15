@@ -21,31 +21,98 @@ dat <- dat %>%
 #Group A - control group
 A_control <- dat %>% 
   filter(control == 1) %>% # Selecting only observations from the control group
+  # Recoding the Likert scale from 0 to 1. This will be applied to each of the study groups.
   mutate(anger = ifelse(Q20 == 1, 0,
                         ifelse(Q20 == 2, 0.25,
                                ifelse(Q20 == 3, 0.50,
                                       ifelse(Q20 == 4, 0.75,
-                                             ifelse(Q20 == 5, 1, 0)))))) # Recoding the Likert scale from 0 to 1.
-
-mean(test$anger)
-
-  #Group B - White-on-Black
+                                             ifelse(Q20 == 5, 1, 0)))))) %>%
+  mutate(shame = ifelse(Q43 == 1, 0,
+                        ifelse(Q43 == 2, 0.25,
+                               ifelse(Q43 == 3, 0.50,
+                                      ifelse(Q43 == 4, 0.75,
+                                             ifelse(Q43 == 5, 1, 0)))))) %>% 
+  mutate(punitive = ifelse(Q28 == 1, 1,
+                        ifelse(Q28 == 2, 0.75,
+                               ifelse(Q28 == 3, 0.50,
+                                      ifelse(Q28 == 4, 0.25,
+                                             ifelse(Q28 == 5, 0, 0)))))) #This scale has to be recoded other way round
+  
+#Group B - White-on-Black
 B_wob <- dat %>% 
   filter(wob == 1) %>% 
-  mutate(anger = ifelse(Q20 >3, 1, 0))
-
-t.test(A_control$anger)
+  mutate(anger = ifelse(Q20 == 1, 0,
+                        ifelse(Q20 == 2, 0.25,
+                               ifelse(Q20 == 3, 0.50,
+                                      ifelse(Q20 == 4, 0.75,
+                                             ifelse(Q20 == 5, 1, 0)))))) %>%
+  mutate(shame = ifelse(Q43 == 1, 0,
+                        ifelse(Q43 == 2, 0.25,
+                               ifelse(Q43 == 3, 0.50,
+                                      ifelse(Q43 == 4, 0.75,
+                                             ifelse(Q43 == 5, 1, 0)))))) %>% 
+  mutate(punitive = ifelse(Q28 == 1, 1,
+                           ifelse(Q28 == 2, 0.75,
+                                  ifelse(Q28 == 3, 0.50,
+                                         ifelse(Q28 == 4, 0.25,
+                                                ifelse(Q28 == 5, 0, 0))))))
+  
 #Group C - White-on-White
 C_wow <- dat %>% 
-  filter(wow == 1)
+  filter(wow == 1) %>% 
+  mutate(anger = ifelse(Q20 == 1, 0,
+                        ifelse(Q20 == 2, 0.25,
+                               ifelse(Q20 == 3, 0.50,
+                                      ifelse(Q20 == 4, 0.75,
+                                             ifelse(Q20 == 5, 1, 0)))))) %>% 
+  mutate(shame = ifelse(Q43 == 1, 0,
+                        ifelse(Q43 == 2, 0.25,
+                               ifelse(Q43 == 3, 0.50,
+                                      ifelse(Q43 == 4, 0.75,
+                                             ifelse(Q43 == 5, 1, 0)))))) %>% 
+  mutate(punitive = ifelse(Q28 == 1, 1,
+                           ifelse(Q28 == 2, 0.75,
+                                  ifelse(Q28 == 3, 0.50,
+                                         ifelse(Q28 == 4, 0.25,
+                                                ifelse(Q28 == 5, 0, 0))))))
 
 #Group D - Black-on-White
 D_bow <- dat %>% 
-  filter(bow == 1)
+  filter(bow == 1) %>% 
+  mutate(anger = ifelse(Q20 == 1, 0,
+                        ifelse(Q20 == 2, 0.25,
+                               ifelse(Q20 == 3, 0.50,
+                                      ifelse(Q20 == 4, 0.75,
+                                             ifelse(Q20 == 5, 1, 0)))))) %>% 
+  mutate(shame = ifelse(Q43 == 1, 0,
+                        ifelse(Q43 == 2, 0.25,
+                               ifelse(Q43 == 3, 0.50,
+                                      ifelse(Q43 == 4, 0.75,
+                                             ifelse(Q43 == 5, 1, 0)))))) %>% 
+  mutate(punitive = ifelse(Q28 == 1, 1,
+                           ifelse(Q28 == 2, 0.75,
+                                  ifelse(Q28 == 3, 0.50,
+                                         ifelse(Q28 == 4, 0.25,
+                                                ifelse(Q28 == 5, 0, 0))))))
 
 #Group E - Black-on-Black
 E_bob <- dat %>% 
-  filter(bob == 1)
+  filter(bob == 1) %>% 
+  mutate(anger = ifelse(Q20 == 1, 0,
+                        ifelse(Q20 == 2, 0.25,
+                               ifelse(Q20 == 3, 0.50,
+                                      ifelse(Q20 == 4, 0.75,
+                                             ifelse(Q20 == 5, 1, 0)))))) %>% 
+  mutate(shame = ifelse(Q43 == 1, 0,
+                        ifelse(Q43 == 2, 0.25,
+                               ifelse(Q43 == 3, 0.50,
+                                      ifelse(Q43 == 4, 0.75,
+                                             ifelse(Q43 == 5, 1, 0)))))) %>% 
+  mutate(punitive = ifelse(Q28 == 1, 1,
+                           ifelse(Q28 == 2, 0.75,
+                                  ifelse(Q28 == 3, 0.50,
+                                         ifelse(Q28 == 4, 0.25,
+                                                ifelse(Q28 == 5, 0, 0))))))
 
 
 ## T-Test to set p-value to 0-10 or is it set when doing the table?
