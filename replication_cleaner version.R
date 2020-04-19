@@ -40,16 +40,22 @@ dat <- dat %>%
                                          ifelse(Q28 == 4, 0.25,
                                                 ifelse(Q28 == 5, 0, 0))))))
 
-#Selecting only important variables
+#Selecting only important variables to make it more clear
 dat <- dat %>%
   select(c(control, wob, wow, bow, bob, anger, shame, punitive))
 
-tgroup2 <- dat %>% 
-  select(c(wob, wow, bow, bob))
+dat_relabel <- dat %>% 
+  mutate(A = ifelse(control == 1, "A_Control", 0)) %>% # relabeling variables
+  mutate(B = ifelse(wob == 1, "B_WoB", 0)) %>%
+  mutate(C = ifelse(wow == 1, "C_WoW", 0)) %>%
+  mutate(D = ifelse(bow == 1, "D_BoW", 0)) %>%
+  mutate(E = ifelse(bob == 1, "E_BoB", 0)) %>% 
+  mutate(groups = coalesce(A, B, C, D, E)) # merging variables into one factor
 
-lm(dat$wob ~ dat$anger)
-
-
+# not sure whether I need this
+by_groups <- dat_test %>%
+  group_by(groups) %>% 
+  summarize(anger_mean = mean(anger), shame_mean = mean(shame), punitive_mean = mean(punitive))
 
 #Creating groups for different experimental conditions
 
@@ -159,31 +165,53 @@ t.test(x = A_control$punitive, y = D_bow$punitive, mu = 0, alternative = "two.si
 t.test(x = A_control$punitive, y = E_bob$punitive, mu = 0, alternative = "two.sided", conf.level = 0.90, var.equal = TRUE, paired = FALSE)
 
 
+
+# Regression Models -------------------------------------------------------
+  
+# creating a Regression model with a dependent variable with categories of experimental groups and an independent variable - the observed emotions and the opinion. 
+reg_anger <- lm(anger ~ as.factor(groups), data = dat_relabel)
+
+reg_shame <- lm(shame ~ as.factor(groups), data = dat_relabel)
+
+reg_punitive <- lm(punitive ~ as.factor(groups), dat = dat_relabel)
+
+margin_anger <- margins(reg_anger)
+
+margin_shame <- margins(reg_shame)
+
+margin_punitive <- margins(reg_punitive)
+
 # Making tables -----------------------------------------------------------
 
 # Plotting ----------------------------------------------------------------
 
-# MARGINS PLOT
+plot(margin_anger)
 
-#margins package
+plot(margin_shame)
+
+plot(margin_punitive)
 
 
 
 
+
+#personal notes_will delete
 
 ####TO DO
-# dat (tgroup2) > Create/recode new variables angry, shame, punitive > create five new variables A B C D E and label them (control, wob, wow,...)
+# Tidy the code - delete what I do not need.
 
 #### Stargazer type PŘEDĚLAT NA LATEX, TO UDELA V MARKDOWN DO PDF PEKNOU TABULKU.
 #### # Jak ale nastavit tu p-value, co se bude odvijet od control group?
 
-#### 1. Regression for to see how anger relates to each group
-#### 2. Based on that regression model - create margin using the margin package
-#### 3. plot the margin
 #### 4. ask about the tables
+
+#Notes
+  # - R does not label the variables like the stata does. Instead, it uses the variable name.
 
 ##PROBLEMS
 ## number of individuals is different than in the original study (difference in one observation) in group three and four
+
+
 
 
 
