@@ -189,7 +189,7 @@ plot(margin_anger)
 
 plot(margin_shame)
 
-plot(margin_punitive)
+plot(margin_punitive) #FIGURE 3 LOOKS DIFFERENT - REDO
 
 
 

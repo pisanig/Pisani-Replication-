@@ -17,7 +17,7 @@ The article is based on psychological theories regarding the concept of intergro
 
 ## Hypotheses
 
-1. When Black Americans are exposed to an intergroup threat, in the form of violent crime, from a member of a racial out-group, Blacks' feelings of anger should increase. **### kdyz jsou cerni ohrozeni violenci nekym z outgroup, cerni jsou vice nastvani**s
+1. When Black Americans are exposed to an intergroup threat, in the form of violent crime, from a member of a racial out-group, Blacks' feelings of anger should increase. **### kdyz jsou cerni ohrozeni violenci nekym z outgroup, cerni jsou vice nastvani** **Table 1 and Figure 1**
 
 2. When Black Americans are exposed to an intragroup threat, in the form of violent crime, from a member of their own racial group, Blacks' feelings of shame should increase. **###kdyz jsou cerni ohrozeni violenci nekym z ingroup, cerni se stydi**
 
@@ -32,3 +32,4 @@ The survey was was done in an experimental way. Respondents reacted to fictional
 The dependent variables, the punitive measure and the emotions measure, are rescaled from 0 to 1 for better comparison.
 
 Each table and figure stands for one of the hypothesis.
+

@@ -1,0 +1,189 @@
+Tady jsem si nechal jen to, co budu muset delat pro to, abych replikoval tabulky a figures ze studie.
+
+Original je taky ve složce a jsou tam i věci, co dělali v ramci Explorative Data Analysis
+
+
+//////////////////////////////////////////////////////////////////////// KEY DEPENDENDENT VARIABLES ///////////////////////////////////
+
+
+///////////////////////EMOTIONS///////////////////////////// DONE
+
+/*Angry*/
+tab Q20
+sum Q20
+gen angry=Q20 
+recode angry (1=0)(2=.25)(3=.50)(4=.75)(5=1)
+sum angry
+tab angry
+
+/*Ashamed*/ 
+tab Q43
+sum Q43
+gen ashamed=Q43
+recode ashamed (1=0)(2=.25)(3=.50)(4=.75)(5=1)
+tab ashamed
+tab Q43
+
+//CRIME OPINION
+tab Q28
+sum Q28
+gen incprison=Q28
+recode incprison (1=1)(2=.75)(3=.50)(4=.25)(5=0)
+tab incprison 
+tab Q28
+
+//////////////CREATING VARIABLE TO INDICATE TREATMENT GROUPS/////////////////// DONE
+gen tgroup=.
+replace tgroup=1 if control==1
+replace tgroup=2 if wob==1
+replace tgroup=3 if wow==1
+replace tgroup=4 if bow==1
+replace tgroup=5 if bob==1
+tab tgroup 
+
+gen tgroup2=.
+replace tgroup2=1 if control==1
+replace tgroup2=2 if wob==1
+replace tgroup2=3 if wow==1
+replace tgroup2=4 if bow==1
+replace tgroup2=5 if bob==1 				= changing tgroup2 to be 5 if bob 1 - takže vytvoříme pět skupin ABCDE 
+tab tgroup2
+
+lab def tgroup2 1"Control" 2"WoB" 3"WoW" 4"BoW" 5"BoB"
+lab val tgroup2 tgroup2
+tab tgroup2
+
+//////////////////////////////////////STATISTICAL ANALYSES ///////////////////////////////
+
+//STATISTICAL ANALYSIS II: DIFFERENCE IN MEANS //
+
+I DO NOT UNDERSTAND WHY THEY DO THE T-TEST USING THE "OR"
+
+ttest angry if tgroup2==1|tgroup2==2, by(tgroup2)    = ttest angry A a B podle puvodniho datasetu(ktery obě skupiny zastřešuje - jak A, tak B)
+ttest angry if tgroup2==1|tgroup2==3, by(tgroup2) 	A C
+ttest angry if tgroup2==1|tgroup2==4, by(tgroup2)	A D
+ttest angry if tgroup2==1|tgroup2==5, by(tgroup2)  	A E - abychom mohli porovnat control a kazdou skupinu
+
+ttest angry if tgroup2==2|tgroup2==5, by(tgroup2)	B E - hyp 1 ? wob bob
+ttest angry if tgroup2==3|tgroup2==4, by(tgroup2)	C D - hyp 2  wow bow
+ttest angry if tgroup2==2|tgroup2==3, by(tgroup2)	B C		wob wow
+ttest angry if tgroup2==2|tgroup2==4, by(tgroup2) 	B D 		wob bow
+
+
+ttest ashamed if tgroup2==1|tgroup2==2, by(tgroup2) 
+ttest ashamed if tgroup2==1|tgroup2==3, by(tgroup2)
+ttest ashamed if tgroup2==1|tgroup2==4, by(tgroup2) 
+ttest ashamed if tgroup2==1|tgroup2==5, by(tgroup2) 
+ttest ashamed if tgroup2==2|tgroup2==5, by(tgroup2) 
+ttest ashamed if tgroup2==3|tgroup2==4, by(tgroup2) 
+ttest ashamed if tgroup2==2|tgroup2==3, by(tgroup2)
+ttest ashamed if tgroup2==2|tgroup2==4, by(tgroup2) 
+
+ttest incprison if tgroup2==1|tgroup2==2, by(tgroup2)
+ttest incprison if tgroup2==1|tgroup2==3, by(tgroup2)
+ttest incprison if tgroup2==1|tgroup2==4, by(tgroup2) 
+ttest incprison if tgroup2==1|tgroup2==5, by(tgroup2)
+ttest incprison if tgroup2==2|tgroup2==5, by(tgroup2)
+ttest incprison if tgroup2==3|tgroup2==4, by(tgroup2)
+ttest incprison if tgroup2==2|tgroup2==3, by(tgroup2) 
+ttest incprison if tgroup2==2|tgroup2==4, by(tgroup2)
+
+
+//// STATISTICAL ANALYSES III: Looking @ MarginsPlots //// 
+
+TADY TO PLOTUJOU.
+
+reg angry i.tgroup2      --- nejprve udelaji regresni analyzu zavisle promenne angry (xvar) a nezavisle promenne (yvar) tgroup2
+margins i.tgroup2 
+marginsplot, level (84)
+
+reg ashamed i.tgroup2
+margins i.tgroup2 
+marginsplot, level (84)
+
+reg incprison i.tgroup2
+margins i.tgroup2 
+marginsplot, level (84)
+
+
+/// APPENDIX ANALYSES  /////
+
+
+// WoB when compared to the Control  							porovnani B a A
+gen wobcontrol=. 
+replace wobcontrol=1 if tgroup==2
+replace wobcontrol=0 if tgroup==1
+tab wobcontrol
+
+reg angry wobcontrol fem age2 edu inc dempid liberal south northcent west 
+reg ashamed wobcontrol fem age2 edu inc dempid liberal south northcent west 
+reg incprison wobcontrol fem age2 edu inc dempid liberal south northcent west 
+
+//WoB when compared to BoB..race of the perp that matters/
+gen wobbob=. 
+replace wobbob=1 if tgroup==2
+replace wobbob=0 if tgroup==5
+tab wobbob 
+
+reg angry wobbob fem age2 edu inc dempid liberal south northcent west 
+reg ashamed wobbob fem age2 edu inc dempid liberal south northcent west 
+reg incprison wobbob fem age2 edu inc dempid liberal south northcent west 
+
+reg incprison wobbob##c.angry  // Figure 4 in Manuscript
+margins wobbob, at(angry=(0(.2)1))
+marginsplot
+
+//WoB when compared to WoW...Race of the victim that matters/ 
+gen wobwow=. 
+replace wobwow=1 if tgroup==2
+replace wobwow=0 if tgroup==3
+tab wobwow 
+
+reg angry wobwow fem age2 edu inc dempid liberal south northcent west 
+reg ashamed wobwow fem age2 edu inc dempid liberal south northcent west 
+reg incprison wobwow fem age2 edu inc dempid liberal south northcent west 
+
+//Linked Fate
+tab Q24
+sum Q24
+gen linkedfate=Q24
+recode linkedfate (1=1)(2=.66)(3=.33)(4=0)
+tab linkedfate
+tab Q24 
+
+pwcorr linkedfate ashamed angry
+
+ttest linkedfate if tgroup2==1|tgroup2==2, by(tgroup2) 
+ttest linkedfate if tgroup2==1|tgroup2==3, by(tgroup2)
+ttest linkedfate if tgroup2==1|tgroup2==4, by(tgroup2) 
+ttest linkedfate if tgroup2==1|tgroup2==5, by(tgroup2) 
+ttest linkedfate if tgroup2==2|tgroup2==5, by(tgroup2) 
+ttest linkedfate if tgroup2==3|tgroup2==4, by(tgroup2) 
+ttest linkedfate if tgroup2==2|tgroup2==3, by(tgroup2)
+ttest linkedfate if tgroup2==2|tgroup2==4, by(tgroup2) 
+
+reg linkedfate i.tgroup2
+margins i.tgroup2 
+marginsplot, level (84)
+
+Email
+
+Hello Andrea,
+
+I am writing you to ask you for help with some things regarding my replication project.
+
+I chose an article that was analyzed in Stata but the topic seemed interesting and the Tables and Figures did not seem very complicated so I decided to try it.
+
+So far, I think I wrangled the data enough to have everything I need to be able to replicate the Tables and Figures from the article (the analysis document is written in stata so I am googling and learning a bit of stata to understand on the go, but they it seems they analysed a lot more than is shown in the article (which makes sense as it is not really important for the final presentation of the study - I have not done everything they did "behind the curtains". That said, my code seems to be too "messy" because there are too much new transformed variables. For the final version, I will try to simplify it.
+
+I wanted to ask you for help with putting the information into tables. To me it looks like it could be done using the Stargazer package but I don't know how to create custom-designed tables with bold headlines, variable descriptions and so on. Do you have some package or tutorial that you would recommend me? How do I put information from t.test() into a table - do I need to make special objects or is there a way "to table" the T-Test results (as with the regression analysis)?
+
+Maybe this would be helpful for other guys from the course too as almost every article works with some form of tables.
+
+I installed a package called margins to be able to replicate the figures - margins plots. However, I am having a bit of a trouble with the regression models. They seem to be using the experimental groups as categorical independent variable and the anger as a continuous one. I got stuck with transforming the groups into factors properly.
+
+Thank you in advance.
+
+Best regards
+Gabriel Pisani
+
